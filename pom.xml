@@ -3,11 +3,11 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.sogeti.smartshelf</groupId>
-    <artifactId>smartshelf</artifactId>
+    <artifactId>IotSmartShelf</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>war</packaging>
 
-    <name>smartshelf</name>
+    <name>IotSmartShelf</name>
   <properties>
         <endorsed.dir>${project.build.directory}/endorsed</endorsed.dir>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

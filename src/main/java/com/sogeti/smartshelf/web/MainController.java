@@ -17,16 +17,27 @@ public class MainController {
     
     
     
-        @RequestMapping(value = "/login", method = RequestMethod.GET)
+    @RequestMapping(value = "/login", method = RequestMethod.GET)
     public ResponseEntity isAuthenticated(HttpSession session) {
-        
-        
+
         System.out.println("login");
-        if(true){
-            return new ResponseEntity(HttpStatus.OK);
-        }else { 
+        if (true) {
+            return new ResponseEntity("Welcome to Sogeti IoT SmartShelf",HttpStatus.OK);
+        } else {
             return new ResponseEntity(HttpStatus.UNAUTHORIZED);
         }
     }
     
+        @RequestMapping(value = "/userInfo", method = RequestMethod.GET)
+    public ResponseEntity getUserInfo(HttpSession session) {
+
+        System.out.println("UserInfo");
+        
+        User user=new User();
+        user.setName("Sogeti Guy");
+        user.setUsername("abdc");
+        
+        return new ResponseEntity(user, HttpStatus.IM_USED);
+    }
+        
 }
