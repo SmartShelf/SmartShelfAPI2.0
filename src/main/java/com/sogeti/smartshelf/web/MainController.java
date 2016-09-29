@@ -1,5 +1,8 @@
 package com.sogeti.smartshelf.web;
 
+import com.sogeti.smartshelf.service.DataService;
+import java.net.MalformedURLException;
+import java.net.UnknownHostException;
 import javax.servlet.http.HttpSession;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -29,7 +32,12 @@ public class MainController {
     }
     
         @RequestMapping(value = "/userInfo", method = RequestMethod.GET)
-    public ResponseEntity getUserInfo(HttpSession session) {
+    public ResponseEntity getUserInfo(HttpSession session) throws MalformedURLException {
+        
+        
+        DataService test = new DataService();
+        test.testConnection();
+        
 
         System.out.println("UserInfo");
         
