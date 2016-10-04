@@ -3,9 +3,6 @@ package com.sogeti.smartshelf.service;
 import com.cloudant.client.api.ClientBuilder;
 import com.cloudant.client.api.CloudantClient;
 import com.cloudant.client.api.Database;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.net.UnknownHostException;
 import java.util.List;
 
 /**
@@ -14,12 +11,11 @@ import java.util.List;
  */
 public class DataService {
 
-    public void testConnection() throws MalformedURLException {
-
-//         Note: for Cloudant Local or Apache CouchDB use:
- CloudantClient client = ClientBuilder.url(new URL("https://abdin.cloudant.com"))
-              .username("heingtherenglichmedisslo")
-              .password("3ac349477c2912e2abf529aed616b6b9968f54f0")
+    public void testConnection() {
+        // Create a new CloudantClient instance for account endpoint example.cloudant.com
+        CloudantClient client = ClientBuilder.account("b3a3013d-c4b6-43be-bd87-5b066e097bc5-bluemix")
+                .username("b3a3013d-c4b6-43be-bd87-5b066e097bc5-bluemix")
+                .password("859631ce8760d0353a0d7b7db107ef45ed6249367f214480a02d314c96326fa8")
               .build();
  
  

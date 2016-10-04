@@ -1,26 +1,33 @@
 package com.sogeti.smartshelf.web;
 
+import com.sogeti.smartshelf.model.Scale;
+import com.sogeti.smartshelf.model.User;
+
+import com.sogeti.smartshelf.model.Product;
 import com.sogeti.smartshelf.service.DataService;
 import java.net.MalformedURLException;
-import java.net.UnknownHostException;
 import javax.servlet.http.HttpSession;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+
+
+import com.wordnik.swagger.annotations.Api;
+import com.wordnik.swagger.annotations.ApiOperation;
+import org.springframework.web.bind.annotation.RestController;
 
 /**
  *
  * @author fabdin
  */
-@Controller
+@RestController
 @RequestMapping("main")
+@Api(value = "Main Service", description = "", produces = "application/json")
 public class MainController {
     
-    
-    
     @RequestMapping(value = "/login", method = RequestMethod.GET)
+   @ApiOperation(value = "login", produces = "application/json")
     public ResponseEntity isAuthenticated(HttpSession session) {
 
         System.out.println("login");
@@ -42,10 +49,27 @@ public class MainController {
         System.out.println("UserInfo");
         
         User user=new User();
-        user.setName("Sogeti Guy");
+        user.setFirstName("Sogeti Guy");
         user.setUsername("abdc");
         
         return new ResponseEntity(user, HttpStatus.IM_USED);
+    }
+    
+    
+        @RequestMapping(value = "/scaleInfo", method = RequestMethod.GET)
+    public ResponseEntity getScaleInfo(HttpSession session) throws MalformedURLException {
+        
+
+        System.out.println("getScaleInfo");
+        
+        Scale s=new Scale();
+        Product p = new Product();
+        p.setName("Dog Food");
+        p.setFullWeight(50);
+        
+        s.setProduct(p);
+        s.setWeight(25);
+        return new ResponseEntity(s, HttpStatus.OK);
     }
         
 }
