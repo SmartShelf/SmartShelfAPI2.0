@@ -1,4 +1,4 @@
 applications:
-- name: iotsmartshelf
+- name: SmartShelf
   path:  target/IotSmartShelf-1.0-SNAPSHOT.war
   memory: 512M
