@@ -7,7 +7,6 @@ package com.sogeti.smartshelf.model;
 public class Product {
      
     Integer fullWeight;
-    String barcode;
     String name;
 
     public Integer getFullWeight() {
@@ -16,14 +15,6 @@ public class Product {
 
     public void setFullWeight(Integer fullWeight) {
         this.fullWeight = fullWeight;
-    }
-
-    public String getBarcode() {
-        return barcode;
-    }
-
-    public void setBarcode(String barcode) {
-        this.barcode = barcode;
     }
 
     public String getName() {

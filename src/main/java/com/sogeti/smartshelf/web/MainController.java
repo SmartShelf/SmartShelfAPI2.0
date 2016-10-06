@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.wordnik.swagger.annotations.Api;
 import com.wordnik.swagger.annotations.ApiOperation;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -26,9 +27,15 @@ import org.springframework.web.bind.annotation.RestController;
 @Api(value = "Main Service", description = "", produces = "application/json")
 public class MainController {
     
+    @Autowired
+    DataService test;
+    
     @RequestMapping(value = "/login", method = RequestMethod.GET)
    @ApiOperation(value = "login", produces = "application/json")
     public ResponseEntity isAuthenticated(HttpSession session) {
+        
+        test.getUser("");
+        
 
         System.out.println("login");
         if (true) {
@@ -42,7 +49,7 @@ public class MainController {
     public ResponseEntity getUserInfo(HttpSession session) throws MalformedURLException {
         
         
-        DataService test = new DataService();
+        
         test.testConnection();
         
 

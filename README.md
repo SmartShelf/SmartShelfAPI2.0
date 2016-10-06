@@ -1,1 +1,1 @@
-IoT Smart Shelf
+Smart Shelf RESTFul API
