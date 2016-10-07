@@ -3,7 +3,12 @@ package com.sogeti.smartshelf.service;
 import com.cloudant.client.api.ClientBuilder;
 import com.cloudant.client.api.CloudantClient;
 import com.cloudant.client.api.Database;
+import com.cloudant.client.api.model.DbInfo;
+import com.cloudant.client.api.model.Index;
+import com.cloudant.client.api.model.IndexField;
+import com.cloudant.client.api.model.Shard;
 import com.sogeti.smartshelf.model.User;
+import java.util.Iterator;
 import java.util.List;
 import org.springframework.stereotype.Service;
 
@@ -93,7 +98,37 @@ System.out.println(doc);
 //}
 
     public void getUser(String string) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        
+        String docId = "users";
+        
+        //Check if users document exist
+        if(db.contains(docId)){
+            System.out.println("DBUri : "+db.getDBUri());
+            
+            //Information about the document
+            Shard docInfo = db.getShard(docId);
+            System.out.println("Range : "+ docInfo.getRange());
+            
+            //More info
+            DbInfo dbInfo2= db.info();
+            
+            List<Index> list=db.listIndices();
+            
+            for(Index i: list){
+                System.out.println("Index name: "+i.getName());
+                
+               Iterator<IndexField> it=i.getFields();
+               
+               while(it.hasNext()){
+                   IndexField inF=it.next();
+                   System.out.println("indexField: "+inF.getName());
+               }
+                
+            }
+            
+        }
+
+        
     }
     
 }
