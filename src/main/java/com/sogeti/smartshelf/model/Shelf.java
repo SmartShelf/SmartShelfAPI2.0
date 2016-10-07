@@ -7,16 +7,15 @@ import java.util.List;
  * @author fabdin
  */
 public class Shelf {
-    
-    User user;
+    String id;
     List<Scale> scales;
 
-    public User getUser() {
-        return user;
+    public String getId() {
+        return id;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setId(String id) {
+        this.id = id;
     }
 
     public List<Scale> getScales() {

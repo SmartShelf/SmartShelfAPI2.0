@@ -3,7 +3,8 @@ package com.sogeti.smartshelf.web;
 import com.sogeti.smartshelf.model.Scale;
 import com.sogeti.smartshelf.model.User;
 
-import com.sogeti.smartshelf.model.Product;
+import com.sogeti.smartshelf.model.Item;
+import com.sogeti.smartshelf.model.UserDoc;
 import com.sogeti.smartshelf.service.DataService;
 import java.net.MalformedURLException;
 import javax.servlet.http.HttpSession;
@@ -34,12 +35,10 @@ public class MainController {
    @ApiOperation(value = "login", produces = "application/json")
     public ResponseEntity isAuthenticated(HttpSession session) {
         
-        test.getUser("");
+        UserDoc user = test.findUser("fadiabdeen");
         
-
-        System.out.println("login");
         if (true) {
-            return new ResponseEntity("Welcome to Sogeti IoT SmartShelf",HttpStatus.OK);
+            return new ResponseEntity(user,HttpStatus.OK);
         } else {
             return new ResponseEntity(HttpStatus.UNAUTHORIZED);
         }
@@ -50,7 +49,7 @@ public class MainController {
         
         
         
-        test.testConnection();
+//        test.testConnection();
         
 
         System.out.println("UserInfo");
@@ -70,12 +69,12 @@ public class MainController {
         System.out.println("getScaleInfo");
         
         Scale s=new Scale();
-        Product p = new Product();
+        Item p = new Item();
         p.setName("Dog Food");
-        p.setFullWeight(50);
+        p.setWeight(50);
         
-        s.setProduct(p);
-        s.setWeight(25);
+        s.setItemId("1");
+        s.setWeight("25");
         return new ResponseEntity(s, HttpStatus.OK);
     }
         
