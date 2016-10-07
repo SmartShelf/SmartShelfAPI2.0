@@ -16,7 +16,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.wordnik.swagger.annotations.Api;
 import com.wordnik.swagger.annotations.ApiOperation;
+import com.wordnik.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -29,53 +31,41 @@ import org.springframework.web.bind.annotation.RestController;
 public class MainController {
     
     @Autowired
-    DataService test;
+    DataService dataService;
+    
     
     @RequestMapping(value = "/login", method = RequestMethod.GET)
-   @ApiOperation(value = "login", produces = "application/json")
-    public ResponseEntity isAuthenticated(HttpSession session) {
+   @ApiOperation(value = "Login service that accepts a username and password and return the user info", produces = "application/json")
+    public ResponseEntity login(
+            HttpSession session,
+            @ApiParam(name="username", value="Username") @RequestParam(value="username", required=true ) String username,
+            @ApiParam(name="password", value="Password") @RequestParam(value="password", required=true ) String password) {
         
-        UserDoc user = test.findUser("fadiabdeen");
+        UserDoc user = dataService.findUser(username);
         
-        if (true) {
-            return new ResponseEntity(user,HttpStatus.OK);
-        } else {
+        if(user.getUser().getPassword().equals(password)){
+            return new ResponseEntity(user.getUser(),HttpStatus.OK);
+        }
+        else{
             return new ResponseEntity(HttpStatus.UNAUTHORIZED);
         }
+        
+        
     }
     
-        @RequestMapping(value = "/userInfo", method = RequestMethod.GET)
-    public ResponseEntity getUserInfo(HttpSession session) throws MalformedURLException {
-        
-        
-        
-//        test.testConnection();
-        
-
-        System.out.println("UserInfo");
-        
-        User user=new User();
-        user.setFirstName("Sogeti Guy");
-        user.setUsername("abdc");
-        
-        return new ResponseEntity(user, HttpStatus.IM_USED);
-    }
+    //shelfs list
+    
+    //shelf update
+    
+    //shelf get
+    
+    //scale update
+   
+    //item lookup
+    
+    //item list
+    
+    //scale update
     
     
-        @RequestMapping(value = "/scaleInfo", method = RequestMethod.GET)
-    public ResponseEntity getScaleInfo(HttpSession session) throws MalformedURLException {
-        
-
-        System.out.println("getScaleInfo");
-        
-        Scale s=new Scale();
-        Item p = new Item();
-        p.setName("Dog Food");
-        p.setWeight(50);
-        
-        s.setItemId("1");
-        s.setWeight("25");
-        return new ResponseEntity(s, HttpStatus.OK);
-    }
-        
 }
