@@ -4,7 +4,7 @@ package com.sogeti.smartshelf.model;
  *
  * @author fabdin
  */
-public class Item {
+public class Product {
      
     Integer weight;
     String name;

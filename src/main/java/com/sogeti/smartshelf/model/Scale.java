@@ -8,7 +8,7 @@ public class Scale {
     
     String id;
     String weight;
-    String itemId;
+    String productId;
 
     public String getWeight() {
         return weight;
@@ -26,12 +26,12 @@ public class Scale {
         this.id = id;
     }
 
-    public String getItemId() {
-        return itemId;
+    public String getProductId() {
+        return productId;
     }
 
-    public void setItemId(String itemId) {
-        this.itemId = itemId;
+    public void setProductId(String productId) {
+        this.productId = productId;
     }
     
     
