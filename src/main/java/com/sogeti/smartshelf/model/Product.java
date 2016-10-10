@@ -5,10 +5,19 @@ package com.sogeti.smartshelf.model;
  * @author fabdin
  */
 public class Product {
-     
+    
+    String id;
     Integer weight;
     String name;
     String barcode;
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
 
     public Integer getWeight() {
         return weight;

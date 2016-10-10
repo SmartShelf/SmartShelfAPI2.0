@@ -1,5 +1,7 @@
 package com.sogeti.smartshelf.web;
 
+import com.sogeti.smartshelf.model.Product;
+import com.sogeti.smartshelf.model.Shelf;
 import com.sogeti.smartshelf.model.UserDoc;
 import com.sogeti.smartshelf.service.DataService;
 import javax.servlet.http.HttpSession;
@@ -12,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import com.wordnik.swagger.annotations.Api;
 import com.wordnik.swagger.annotations.ApiOperation;
 import com.wordnik.swagger.annotations.ApiParam;
+import java.util.List;
 import javax.ws.rs.PathParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -55,7 +58,9 @@ public class MainController {
     @ApiOperation(value = "List of shelfs", produces = "application/json")
     public ResponseEntity shelfs() {
         
-        return new ResponseEntity(HttpStatus.OK);
+        List<Shelf> shelfs= dataService.getShelfs();
+        
+        return new ResponseEntity(shelfs,HttpStatus.OK);
     }    
     
     //shelf add
@@ -81,7 +86,8 @@ public class MainController {
     @ApiOperation(value = "Get Shelf", produces = "application/json")
     public ResponseEntity getShelf(@ApiParam(name="id") @PathParam(value="id") String id) {
         
-        return new ResponseEntity(HttpStatus.OK);
+        Shelf shelf = dataService.getShelf(id);
+        return new ResponseEntity(shelf,HttpStatus.OK);
     }  
     
     //product lookup
@@ -90,7 +96,8 @@ public class MainController {
     @ApiOperation(value = "Search for products", produces = "application/json")
     public ResponseEntity getProducts(@ApiParam(name="searchString") @PathParam(value="searchString") String searchString) {
         
-        return new ResponseEntity(HttpStatus.OK);
+        List<Product> products = dataService.findProduct(searchString);
+        return new ResponseEntity(products,HttpStatus.OK);
     } 
     
     //product list
@@ -99,7 +106,9 @@ public class MainController {
     @ApiOperation(value = "List of products", produces = "application/json")
     public ResponseEntity getProducts() {
         
-        return new ResponseEntity(HttpStatus.OK);
+       List<Product> products = dataService.getProducts();
+        
+        return new ResponseEntity(products,HttpStatus.OK);
     } 
     
     //scale update
