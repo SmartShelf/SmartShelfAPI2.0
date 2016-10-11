@@ -17,6 +17,7 @@ import com.wordnik.swagger.annotations.ApiParam;
 import java.util.List;
 import javax.ws.rs.PathParam;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -84,7 +85,7 @@ public class MainController {
     //shelf get
     @RequestMapping(value = "/shelf/{id}", method = RequestMethod.GET)
     @ApiOperation(value = "Get Shelf", produces = "application/json")
-    public ResponseEntity getShelf(@ApiParam(name="id") @PathParam(value="id") String id) {
+    public ResponseEntity getShelf(@ApiParam(name="id") @PathVariable(value="id") String id) {
         
         Shelf shelf = dataService.getShelf(id);
         return new ResponseEntity(shelf,HttpStatus.OK);
