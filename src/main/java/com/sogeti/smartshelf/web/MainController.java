@@ -1,6 +1,8 @@
 package com.sogeti.smartshelf.web;
 
+import com.cloudant.client.api.model.Response;
 import com.sogeti.smartshelf.model.Product;
+import com.sogeti.smartshelf.model.Scale;
 import com.sogeti.smartshelf.model.Shelf;
 import com.sogeti.smartshelf.model.UserDoc;
 import com.sogeti.smartshelf.service.DataService;
@@ -70,7 +72,9 @@ public class MainController {
     @ApiOperation(value = "Add new shelf", produces = "application/json")
     public ResponseEntity addShelf(@RequestBody Shelf shelf) {
         
-        return new ResponseEntity(HttpStatus.OK);
+        Response result = dataService.addShelf(shelf);
+        
+        return new ResponseEntity(HttpStatus.valueOf(result.getStatusCode()));
     }    
     
     //shelf update
@@ -79,8 +83,26 @@ public class MainController {
     @ApiOperation(value = "Update shelf", produces = "application/json")
     public ResponseEntity updateShelf(@RequestBody Shelf shelf) {
         
+        Response result = dataService.updateShelf(shelf);
+        
+        return new ResponseEntity(HttpStatus.valueOf(result.getStatusCode()));
+    }
+
+    @RequestMapping(value = "/registerProduct", method = RequestMethod.POST)
+    @ApiOperation(value = "Update scale", produces = "application/json")
+    public ResponseEntity registerProduct(@RequestBody Scale shelf) {
+        
+        
         return new ResponseEntity(HttpStatus.OK);
-    }    
+    }
+    
+    @RequestMapping(value = "/unRegisterProduct", method = RequestMethod.POST)
+    @ApiOperation(value = "Update scale", produces = "application/json")
+    public ResponseEntity unRegisterProduct(@RequestBody Scale shelf) {
+        
+        
+        return new ResponseEntity(HttpStatus.OK);
+    }
     
     //shelf get
     @RequestMapping(value = "/shelf/{id}", method = RequestMethod.GET)
