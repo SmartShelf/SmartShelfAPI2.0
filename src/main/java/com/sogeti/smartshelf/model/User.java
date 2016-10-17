@@ -8,7 +8,6 @@ public class User {
     String firstName;
     String lastName;
     String username;
-    String password;
 
     public String getFirstName() {
         return firstName;
@@ -34,18 +33,10 @@ public class User {
         this.username = username;
     }
 
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
     @Override
     public String toString() {
 
-          return "{ id: "+username+",firstName: " + firstName + ",lastName: " + lastName + ",username: " + username + ",password: " + password +"}";
+          return "{ id: "+username+",firstName: " + firstName + ",lastName: " + lastName + ",username: " + username +"}";
     }
     
 }

@@ -9,14 +9,14 @@ import java.util.List;
 public class UserDoc  extends Doc{
     
 
-    User user;    
+    UserWithSecret user;    
     List<Shelf> shelfs;
 //
-    public User getUser() {
+    public UserWithSecret getUser() {
         return user;
     }
 
-    public void setUser(User user) {
+    public void setUser(UserWithSecret user) {
         this.user = user;
     }
 

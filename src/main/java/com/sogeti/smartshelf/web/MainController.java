@@ -4,6 +4,7 @@ import com.cloudant.client.api.model.Response;
 import com.sogeti.smartshelf.model.Product;
 import com.sogeti.smartshelf.model.Scale;
 import com.sogeti.smartshelf.model.Shelf;
+import com.sogeti.smartshelf.model.User;
 import com.sogeti.smartshelf.model.UserDoc;
 import com.sogeti.smartshelf.service.DataService;
 import io.swagger.annotations.Api;
@@ -46,7 +47,7 @@ public class MainController {
         UserDoc user = dataService.findUser(username);
         
         if(user.getUser().getPassword().equals(password)){
-            return new ResponseEntity(user.getUser(),HttpStatus.OK);
+            return new ResponseEntity((User)user.getUser(),HttpStatus.OK);
         }
         else{
             return new ResponseEntity("Unauthorized",HttpStatus.UNAUTHORIZED);
