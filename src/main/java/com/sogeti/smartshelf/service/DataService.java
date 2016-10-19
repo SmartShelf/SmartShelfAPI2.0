@@ -48,6 +48,10 @@ public class DataService {
         return user;
     }
     
+    public UserDoc getUser(){
+     
+        return user;
+    }
 
     public Response updateUser(UserDoc user) {
         Response response = db.update(user);
@@ -134,6 +138,15 @@ public class DataService {
             }
         }
 
+        return null;
+    }
+
+    public Product getProduct(String productId) {
+        for(Product p: getProducts()){
+            if(p.getId().equals(productId)){
+                return p;
+            }
+        }
         return null;
     }
 }
