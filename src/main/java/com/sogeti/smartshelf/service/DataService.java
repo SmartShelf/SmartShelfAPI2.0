@@ -5,6 +5,7 @@ import com.cloudant.client.api.CloudantClient;
 import com.cloudant.client.api.Database;
 import com.cloudant.client.api.model.Response;
 import com.cloudant.client.org.lightcouch.CouchDbException;
+import com.sogeti.smartshelf.MathUtils;
 import com.sogeti.smartshelf.model.Product;
 import com.sogeti.smartshelf.model.ProductsDoc;
 import com.sogeti.smartshelf.model.Scale;
@@ -47,16 +48,14 @@ public class DataService {
 
         return user;
     }
-    
-    public UserDoc getUser(){
-     
+
+    public UserDoc getUser() {
+
         return user;
     }
 
     public Response updateUser(UserDoc user) {
         Response response = db.update(user);
-        System.out.println(response.getId());
-        System.out.println(response.getStatusCode());
 
         return response;
     }
@@ -71,12 +70,27 @@ public class DataService {
 
         for (Shelf s : user.getShelfs()) {
             if (s.getId().equals(shelfId)) {
+
+                for (Scale sc : s.getScales()) {
+                    populatePersentageInScale(sc);
+                }
+
                 return s.getScales();
+
             }
         }
 
         return null;
 
+    }
+
+    public void populatePersentageInScale(Scale s) {
+
+        if (s.getProductId() != null) {
+            Product p = getProduct(s.getProductId());
+
+            s.setPersentage(MathUtils.getPersentage(p, s.getWeight()));
+        }
     }
 
     public List<Product> getProducts() {
@@ -91,6 +105,18 @@ public class DataService {
             }
         } catch (CouchDbException ex) {
             System.out.println("Cant reach DB");
+        }
+
+        return null;
+    }
+
+    public Product getProduct(String productId) {
+
+        for (Product p : getProducts()) {
+
+            if (p.getId().equals(productId)) {
+                return p;
+            }
         }
 
         return null;
@@ -123,30 +149,20 @@ public class DataService {
     public Response addShelf(Shelf shelf) {
 
         getShelfs().add(shelf);
-        
-        
+
         return updateUser(user);
 
     }
 
     public Response updateShelf(Shelf shelf) {
-        
-        for(Shelf f:getShelfs()){
-            if(f.getId().equals(shelf.getId())){
-                shelf=f;
+
+        for (Shelf f : getShelfs()) {
+            if (f.getId().equals(shelf.getId())) {
+                shelf = f;
                 return updateUser(user);
             }
         }
 
-        return null;
-    }
-
-    public Product getProduct(String productId) {
-        for(Product p: getProducts()){
-            if(p.getId().equals(productId)){
-                return p;
-            }
-        }
         return null;
     }
 }

@@ -7,9 +7,10 @@ package com.sogeti.smartshelf.model;
 public class Product {
     
     String id;
+    String name;
     Integer weight;
     Integer packageWeight;
-    String name;
+    
     String barcode;
 
     public String getId() {

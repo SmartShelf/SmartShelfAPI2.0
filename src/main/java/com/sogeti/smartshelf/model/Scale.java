@@ -1,7 +1,5 @@
 package com.sogeti.smartshelf.model;
 
-import java.util.Date;
-
 /**
  *
  * @author fabdin
@@ -9,18 +7,18 @@ import java.util.Date;
 public class Scale {
 
     String id;
-    String weight;
+    Integer weight;
     String productId;
-    String persentage;
-    Date registerDate;
-    Date updateDate;
-    Date estimatedDate;
+    Integer persentage;
+    String registerDate;
+    String updateDate;
+    String estimatedDate;
 
-    public String getWeight() {
+    public Integer getWeight() {
         return weight;
     }
 
-    public void setWeight(String weight) {
+    public void setWeight(Integer weight) {
         this.weight = weight;
     }
 
@@ -40,35 +38,35 @@ public class Scale {
         this.productId = productId;
     }
 
-    public String getPersentage() {
+    public Integer getPersentage() {
         return persentage;
     }
 
-    public void setPersentage(String persentage) {
+    public void setPersentage(Integer persentage) {
         this.persentage = persentage;
     }
 
-    public Date getRegisterDate() {
+    public String getRegisterDate() {
         return registerDate;
     }
 
-    public void setRegisterDate(Date registerDate) {
+    public void setRegisterDate(String registerDate) {
         this.registerDate = registerDate;
     }
 
-    public Date getUpdateDate() {
+    public String getUpdateDate() {
         return updateDate;
     }
 
-    public void setUpdateDate(Date updateDate) {
+    public void setUpdateDate(String updateDate) {
         this.updateDate = updateDate;
     }
 
-    public Date getEstimatedDate() {
+    public String getEstimatedDate() {
         return estimatedDate;
     }
 
-    public void setEstimatedDate(Date estimatedDate) {
+    public void setEstimatedDate(String estimatedDate) {
         this.estimatedDate = estimatedDate;
     }
 

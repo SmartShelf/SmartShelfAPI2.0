@@ -11,7 +11,7 @@ public class UserDoc  extends Doc{
 
     UserWithSecret user;    
     List<Shelf> shelfs;
-//
+
     public UserWithSecret getUser() {
         return user;
     }

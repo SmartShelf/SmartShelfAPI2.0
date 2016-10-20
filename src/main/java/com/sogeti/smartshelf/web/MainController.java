@@ -46,7 +46,7 @@ public class MainController {
         
         UserDoc user = dataService.findUser(username);
         
-        if(user.getUser().getPassword().equals(password)){
+        if(user!=null && user.getUser().getPassword().equals(password)){
             return new ResponseEntity((User)user.getUser(),HttpStatus.OK);
         }
         else{
@@ -91,7 +91,7 @@ public class MainController {
 
     @RequestMapping(value = "/registerProduct", method = RequestMethod.POST)
     @ApiOperation(value = "Update scale", produces = "application/json")
-    public ResponseEntity registerProduct(@RequestBody Scale shelf) {
+    public ResponseEntity registerProduct(@RequestBody Scale scale) {
         
         
         return new ResponseEntity(HttpStatus.OK);
@@ -99,7 +99,7 @@ public class MainController {
     
     @RequestMapping(value = "/unRegisterProduct", method = RequestMethod.POST)
     @ApiOperation(value = "Update scale", produces = "application/json")
-    public ResponseEntity unRegisterProduct(@RequestBody Scale shelf) {
+    public ResponseEntity unRegisterProduct(@RequestBody Scale scale) {
         
         
         return new ResponseEntity(HttpStatus.OK);
@@ -111,6 +111,8 @@ public class MainController {
     public ResponseEntity getShelf(@ApiParam(name="id") @PathVariable(value="id") String id) {
         
         Shelf shelf = dataService.getShelf(id);
+        
+       dataService.getScales(shelf.getId());
         return new ResponseEntity(shelf,HttpStatus.OK);
     }  
     
