@@ -30,7 +30,7 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 @RequestMapping("main")
-@Api(value = "Main Service", description = "", produces = "application/json")
+@Api(value = "Main Service", produces = "application/json")
 public class MainController {
     
     @Autowired

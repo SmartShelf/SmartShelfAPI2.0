@@ -8,6 +8,7 @@ public class Product {
     
     String id;
     Integer weight;
+    Integer packageWeight;
     String name;
     String barcode;
 
@@ -42,6 +43,13 @@ public class Product {
     public void setBarcode(String barcode) {
         this.barcode = barcode;
     }
-    
-    
+
+    public Integer getPackageWeight() {
+        return packageWeight;
+    }
+
+    public void setPackageWeight(Integer packageWeight) {
+        this.packageWeight = packageWeight;
+    }
+
 }
