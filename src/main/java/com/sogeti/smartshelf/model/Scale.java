@@ -14,6 +14,7 @@ public class Scale {
     String persentage;
     Date registerDate;
     Date updateDate;
+    Date estimatedDate;
 
     public String getWeight() {
         return weight;
@@ -61,6 +62,14 @@ public class Scale {
 
     public void setUpdateDate(Date updateDate) {
         this.updateDate = updateDate;
+    }
+
+    public Date getEstimatedDate() {
+        return estimatedDate;
+    }
+
+    public void setEstimatedDate(Date estimatedDate) {
+        this.estimatedDate = estimatedDate;
     }
 
 }
