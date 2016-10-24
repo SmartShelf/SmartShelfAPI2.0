@@ -89,6 +89,20 @@ public class MainController {
 
         return new ResponseEntity(HttpStatus.OK);
     }
+    
+    
+    @RequestMapping(value = "/shelf/{shelfId}", method = RequestMethod.DELETE)
+    @ApiOperation(value = "Update shelf", produces = "application/json")
+    public ResponseEntity deleteShelf(
+            @RequestParam(value = "username", required = false) String username,
+            @ApiParam(name = "shelfId", required = true) @PathVariable(value = "shelfId") String shelfId
+    ) {
+
+        dataService.deleteShelf(shelfId);
+
+        return new ResponseEntity(HttpStatus.OK);
+    }
+    
 
     //shelf update
     @RequestMapping(value = "/shelf", method = RequestMethod.POST)
@@ -197,7 +211,7 @@ public class MainController {
         System.out.println("DevicdID : " + deviceId);
         
         System.out.println("scale1 "+MathUtils.normalizeWeight(scale1, "scale1"));
-        System.out.println("scale2 "+MathUtils.normalizeWeight(scale2, "scale2"));       
+        System.out.println("scale2 "+MathUtils.normalizeWeight(scale2, "scale2"));    
         
 //        for(String key:scales.keySet()){
 //            System.out.println(key+" : "+scales.get(key));

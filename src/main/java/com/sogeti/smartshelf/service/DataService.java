@@ -95,7 +95,9 @@ public class DataService {
         if (s.getProductId() != null) {
             Product p = getProduct(s.getProductId());
 
-            s.setPersentage(MathUtils.getPersentage(p, s.getWeight()));
+            if(s.getWeight()!=null){
+                s.setPersentage(MathUtils.getPersentage(p, s.getWeight()));
+            }
         }
     }
 
@@ -194,5 +196,19 @@ public class DataService {
     private void updateUser(){
          updateUser(user);
          findUser(null);
+    }
+
+    public void deleteShelf(String shelfId) {
+     
+        List<Shelf> shelfs= new ArrayList<>();
+        
+        for(Shelf s: getShelfs()){
+            if(s.getId()!=null && !s.getId().equals(shelfId)){
+                shelfs.add(s);
+            }
+        }
+        
+        user.setShelfs(shelfs);
+        updateUser();
     }
 }
