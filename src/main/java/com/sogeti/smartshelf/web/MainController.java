@@ -1,6 +1,6 @@
 package com.sogeti.smartshelf.web;
 
-import com.cloudant.client.api.model.Response;
+import com.sogeti.smartshelf.MathUtils;
 import com.sogeti.smartshelf.model.Product;
 import com.sogeti.smartshelf.model.Scale;
 import com.sogeti.smartshelf.model.Shelf;
@@ -10,6 +10,7 @@ import com.sogeti.smartshelf.service.DataService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
+import java.util.ArrayList;
 import javax.servlet.http.HttpSession;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -58,6 +59,8 @@ public class MainController {
     @RequestMapping(value = "/shelfs", method = RequestMethod.GET)
     @ApiOperation(value = "List of shelfs", produces = "application/json")
     public ResponseEntity shelfs(@RequestParam(value = "username", required = false) String username) {
+        
+        System.out.println("Shelfs .... ");
 
         List<Shelf> shelfs = dataService.getShelfs();
 
@@ -69,9 +72,22 @@ public class MainController {
     @ApiOperation(value = "Add new shelf", produces = "application/json")
     public ResponseEntity addShelf(@RequestBody Shelf shelf, @RequestParam(value = "username", required = false) String username) {
 
-        Response result = dataService.addShelf(shelf);
+        Scale s1 = new Scale();
+        s1.setId("1");
+        Scale s2 = new Scale();
+        s2.setId("2");
+        
+        List<Scale> scales = new ArrayList();
+        scales.add(s1);
+        scales.add(s2);
+        
+        shelf.setScales(scales);
+        
+        dataService.addShelf(shelf);
+        
+        
 
-        return new ResponseEntity(HttpStatus.valueOf(result.getStatusCode()));
+        return new ResponseEntity(HttpStatus.OK);
     }
 
     //shelf update
@@ -79,19 +95,28 @@ public class MainController {
     @ApiOperation(value = "Update shelf", produces = "application/json")
     public ResponseEntity updateShelf(@RequestBody Shelf shelf, @RequestParam(value = "username", required = false) String username) {
 
-        Response result = dataService.updateShelf(shelf);
+        dataService.updateShelf(shelf);
 
-        return new ResponseEntity(HttpStatus.valueOf(result.getStatusCode()));
+        return new ResponseEntity(HttpStatus.OK);
     }
 
     @RequestMapping(value = "product/register/shelf/{shelfId}/scale/{scaleId}/product/{productId}", method = RequestMethod.POST)
     @ApiOperation(value = "Register new product on a scale", produces = "application/json")
     public ResponseEntity registerProduct(
-            @RequestBody Scale scale, 
             @RequestParam(value = "username", required = false) String username,
-            @ApiParam(name = "shelfId") @PathVariable(value = "shelfId") String shelfId,
-            @ApiParam(name = "scaleId") @PathVariable(value = "scaleId") String scaleId,
-            @ApiParam(name = "productId") @PathVariable(value = "productId") String productId) {
+            @ApiParam(name = "shelfId", required = true) @PathVariable(value = "shelfId") String shelfId,
+            @ApiParam(name = "scaleId", required = true) @PathVariable(value = "scaleId") String scaleId,
+            @ApiParam(name = "productId", required = true) @PathVariable(value = "productId") String productId) {
+
+        Shelf shelf = dataService.getShelf(shelfId);
+
+        for (Scale scale : shelf.getScales()) {
+            if (scale.getId().equals(scaleId)) {
+
+                dataService.updateProduct(scale, productId);
+
+            }
+        }
 
         return new ResponseEntity(HttpStatus.OK);
     }
@@ -99,10 +124,19 @@ public class MainController {
     @RequestMapping(value = "product/unregister/shelf/{shelfId}/scale/{scaleId}", method = RequestMethod.POST)
     @ApiOperation(value = "Unregister a product from a scale and archive the data", produces = "application/json")
     public ResponseEntity unRegisterProduct(
-            @RequestBody Scale scale, 
             @RequestParam(value = "username", required = false) String username,
-            @ApiParam(name = "shelfId") @PathVariable(value = "shelfId") String shelfId,
-            @ApiParam(name = "scaleId") @PathVariable(value = "scaleId") String scaleId) {
+            @ApiParam(name = "shelfId", required = true) @PathVariable(value = "shelfId") String shelfId,
+            @ApiParam(name = "scaleId", required = true) @PathVariable(value = "scaleId") String scaleId) {
+
+        Shelf shelf = dataService.getShelf(shelfId);
+
+        for (Scale scale : shelf.getScales()) {
+            if (scale.getId().equals(scaleId)) {
+
+                dataService.clearScale(scale);
+
+            }
+        }
 
         return new ResponseEntity(HttpStatus.OK);
     }
@@ -111,7 +145,7 @@ public class MainController {
     @RequestMapping(value = "/shelf/{id}", method = RequestMethod.GET)
     @ApiOperation(value = "Get Shelf", produces = "application/json")
     public ResponseEntity getShelf(
-            @ApiParam(name = "id") @PathVariable(value = "id") String id, 
+            @ApiParam(name = "id", required = true) @PathVariable(value = "id") String id,
             @RequestParam(value = "username", required = false) String username) {
 
         Shelf shelf = dataService.getShelf(id);
@@ -154,7 +188,21 @@ public class MainController {
     public ResponseEntity updateWeights(
             @PathVariable(value = "deviceId") String deviceId,
             @RequestParam(value = "username", required = false) String username,
-            @RequestBody Map<String,String> scales) {
+            @RequestParam(value = "scale1") String scale1,
+            @RequestParam(value = "scale2") String scale2,
+            @RequestBody(required = false) Map<String,String> scales
+    ) {
+        
+        
+        System.out.println("DevicdID : " + deviceId);
+        
+        System.out.println("scale1 "+MathUtils.normalizeWeight(scale1, "scale1"));
+        System.out.println("scale2 "+MathUtils.normalizeWeight(scale2, "scale2"));       
+        
+//        for(String key:scales.keySet()){
+//            System.out.println(key+" : "+scales.get(key));
+//        }
+        
 
         return new ResponseEntity(HttpStatus.OK);
     }

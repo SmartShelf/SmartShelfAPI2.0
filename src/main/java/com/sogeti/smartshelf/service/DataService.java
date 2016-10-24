@@ -51,6 +51,10 @@ public class DataService {
 
     public UserDoc getUser() {
 
+        if(user==null){
+            user=findUser(null);
+            
+        }
         return user;
     }
 
@@ -62,17 +66,19 @@ public class DataService {
 
     public List<Shelf> getShelfs() {
 
-        return user.getShelfs();
+        return getUser().getShelfs();
 
     }
 
     public List<Scale> getScales(String shelfId) {
 
-        for (Shelf s : user.getShelfs()) {
+        for (Shelf s : getUser().getShelfs()) {
             if (s.getId().equals(shelfId)) {
 
-                for (Scale sc : s.getScales()) {
-                    populatePersentageInScale(sc);
+                if(s.getScales()!=null){
+                    for (Scale sc : s.getScales()) {
+                        populatePersentageInScale(sc);
+                    }
                 }
 
                 return s.getScales();
@@ -123,7 +129,7 @@ public class DataService {
     }
 
     public Shelf getShelf(String id) {
-        for (Shelf s : user.getShelfs()) {
+        for (Shelf s : getUser().getShelfs()) {
             if (s.getId().equals(id)) {
                 return s;
             }
@@ -146,23 +152,47 @@ public class DataService {
 
     }
 
-    public Response addShelf(Shelf shelf) {
+    public void addShelf(Shelf shelf) {
+        
 
         getShelfs().add(shelf);
 
-        return updateUser(user);
+         updateUser();
 
     }
 
-    public Response updateShelf(Shelf shelf) {
+    public void updateShelf(Shelf shelf) {
 
         for (Shelf f : getShelfs()) {
             if (f.getId().equals(shelf.getId())) {
                 shelf = f;
-                return updateUser(user);
+                 updateUser();
             }
         }
 
-        return null;
+    }
+
+    public void clearScale(Scale scale) {
+        scale.setProductId("");
+        scale.setRegisterDate("");
+        scale.setEstimatedDate("");
+        scale.setUpdateDate("");
+        scale.setPersentage(0);
+
+        updateUser();
+        
+    }
+
+    public void updateProduct(Scale scale, String productId) {
+
+        scale.setProductId(productId);
+
+        updateUser();
+
+    }
+    
+    private void updateUser(){
+         updateUser(user);
+         findUser(null);
     }
 }
