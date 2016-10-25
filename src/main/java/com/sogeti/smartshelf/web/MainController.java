@@ -210,8 +210,14 @@ public class MainController {
         
         System.out.println("DevicdID : " + deviceId);
         
-        System.out.println("scale1 "+MathUtils.normalizeWeight(scale1, "scale1"));
-        System.out.println("scale2 "+MathUtils.normalizeWeight(scale2, "scale2"));    
+        Integer s1=MathUtils.normalizeWeight(scale1, "scale1");
+        Integer s2=MathUtils.normalizeWeight(scale2, "scale2");
+        
+        System.out.println("scale1 "+s1);
+        System.out.println("scale2 "+s2);   
+        
+        dataService.updateWeights(deviceId,"1",s1);
+        dataService.updateWeights(deviceId,"2",s2);
         
 //        for(String key:scales.keySet()){
 //            System.out.println(key+" : "+scales.get(key));

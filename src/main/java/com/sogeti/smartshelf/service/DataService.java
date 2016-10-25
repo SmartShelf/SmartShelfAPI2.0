@@ -211,4 +211,22 @@ public class DataService {
         user.setShelfs(shelfs);
         updateUser();
     }
+
+    public void updateWeights(String deviceId, String scaleId, Integer scaleValue) {
+        
+        for(Shelf shelf:user.getShelfs()){
+            if(shelf.getId().equals(deviceId)){
+                
+                for(Scale scale: shelf.getScales()){
+                    if(scale.getId().equals(scaleId)){
+                        scale.setWeight(scaleValue);
+                        updateUser();
+                        break;
+                    }
+                }
+                
+            }
+        }
+    }
+    
 }
