@@ -214,6 +214,8 @@ public class DataService {
 
     public void updateWeights(String deviceId, String scaleId, Integer scaleValue) {
         
+        getUser();
+        
         for(Shelf shelf:user.getShelfs()){
             if(shelf.getId().equals(deviceId)){
                 
