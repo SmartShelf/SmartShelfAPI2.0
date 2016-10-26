@@ -12,12 +12,13 @@ public class MathUtils {
     public static Integer getPersentage(Product product, Integer currentWeight){
         
         if(product == null) return 0;
-        Integer weightWithoutPackaging = product.getWeight() - product.getPackageWeight();
-        Integer currentWeightWithoutPackaging = currentWeight - product.getPackageWeight();
         
-        Integer persentage = (currentWeightWithoutPackaging/weightWithoutPackaging)*100;
+        int weightWithoutPackaging = product.getWeight() - product.getPackageWeight();
+        int currentWeightWithoutPackaging = currentWeight - product.getPackageWeight();
         
-        return persentage;
+        double result=((double)currentWeightWithoutPackaging/(double)weightWithoutPackaging)*100;
+        
+        return (int) Math.round(result);
     }
     
     public static Integer normalizeWeight(String pressure, String name){
