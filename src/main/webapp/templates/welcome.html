@@ -1,7 +1,7 @@
 <div class="jumbotron ng-scope">
     <div class="container">
         <h2>Welcome to <strong>Smart</strong>Shelf </h2>
-        <p style="color: #666666"> Smart shelf is used to track the usage of the household items like and and predict when you need to make an order , you will also be able to check it with Amazon echo and make your orders</p>
+        <p style="color: #666666"> Smart shelf is used to track the usage of the household items like and predict when you need to order a new one , you will also be able to check your products with Amazon echo and make your orders</p>
 
         <div style="float: left; width: fit-content;margin-right: 4px;">
          <autocomplete ng-model="placename" data="places" on-select="selectplace" attr-placeholder="Find your cafeteria" attr-input-class="nowidth"></autocomplete>
@@ -9,8 +9,16 @@
         
         <div style="padding: 3px;">
             
-            <button type="submit" class="btn btn-primary" ng-click="createAccount()">Create an account</button></li>
+            <button type="submit" class="btn btn-primary" ng-click="createAccount()">Connect your SmartShelf </button></li>
             
+        </div>
+        
+        <div style="padding: 3px; margin-top: 20px;">
+            <p>
+                <a target="newwindow" class="button-blue-light" href="https://software.intel.com/edison-config/win/latest" rel="nofollow" >Windows* 64 bit</a> &nbsp;&nbsp;&nbsp;
+                <a target="newwindow" class="button-blue-light" href="https://software.intel.com/edison-config/osx/latest" rel="nofollow">OS X*</a> &nbsp;&nbsp;&nbsp;
+                <a target="newwindow" class="button-blue-light" href="https://software.intel.com/edison-config/linux/latest" rel="nofollow">Linux*</a>
+            </p>
         </div>
         <!--<input type="text"  ng-autocomplete ng-model="autocomplete" options="options" details="details"/>-->
 

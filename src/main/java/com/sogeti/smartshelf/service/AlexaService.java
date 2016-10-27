@@ -27,7 +27,7 @@ public class AlexaService {
                 Product p=dataService.getProduct(s.getProductId());
                 String prodName=""; 
                 if(p!=null) prodName = p.getName();
-                message += "The "+prodName+" is 0 percent ";
+                message += "The "+prodName+" is "+s.getPersentage()+" percent ";
                 
                 if(shelf.getScales().indexOf(s) < shelf.getScales().size()-1){
                     message += "and ";
