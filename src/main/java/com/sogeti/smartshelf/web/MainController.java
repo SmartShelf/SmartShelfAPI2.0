@@ -1,11 +1,7 @@
 package com.sogeti.smartshelf.web;
 
 import com.sogeti.smartshelf.MathUtils;
-import com.sogeti.smartshelf.model.Product;
-import com.sogeti.smartshelf.model.Scale;
-import com.sogeti.smartshelf.model.Shelf;
-import com.sogeti.smartshelf.model.User;
-import com.sogeti.smartshelf.model.UserDoc;
+import com.sogeti.smartshelf.model.*;
 import com.sogeti.smartshelf.service.DataService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -46,9 +42,34 @@ public class MainController {
             @ApiParam(name = "password", value = "Password") @RequestParam(value = "password", required = true) String password) {
 
         UserDoc user = dataService.findUser(username);
+//        if (user.getUser() != null)
+//        {
+//            if (user.getUser().getHousehold() != null)
+//            {
+//                System.out.println(user.getUser().getHousehold().getMembers().get(0).getAge());
+//            }
+//        }
+        if (user != null && user.getUser().getPassword().equals(password)) {
+           // System.out.println(user.toString());
+            return new ResponseEntity((User) user.getUser(), HttpStatus.OK);
+        } else {
+            return new ResponseEntity("Unauthorized", HttpStatus.UNAUTHORIZED);
+        }
+
+    }
+    
+    @RequestMapping(value = "/loginGetDoc", method = RequestMethod.GET)
+    @ApiOperation(value = "Login service that accepts a username and password and return the user info", produces = "application/json")
+    public ResponseEntity loginGetDoc(
+            HttpSession session,
+            @ApiParam(name = "username", value = "Username") @RequestParam(value = "username", required = true) String username,
+            @ApiParam(name = "password", value = "Password") @RequestParam(value = "password", required = true) String password) {
+
+        UserDoc user = dataService.findUser(username);
 
         if (user != null && user.getUser().getPassword().equals(password)) {
-            return new ResponseEntity((User) user.getUser(), HttpStatus.OK);
+            System.out.println(user.toString());
+            return new ResponseEntity((UserDoc) user, HttpStatus.OK);
         } else {
             return new ResponseEntity("Unauthorized", HttpStatus.UNAUTHORIZED);
         }
@@ -66,7 +87,43 @@ public class MainController {
 
         return new ResponseEntity(shelfs, HttpStatus.OK);
     }
+    
+    //shelves list
+    @RequestMapping(value = "/shelves", method = RequestMethod.GET)
+    @ApiOperation(value = "List of shelves", produces = "application/json")
+    public ResponseEntity shelves(@RequestParam(value = "username", required = false) String username) {
+        
+        System.out.println("Shelves .... ");
 
+        List<Shelf> shelfs = dataService.getShelves();
+
+        return new ResponseEntity(shelfs, HttpStatus.OK);
+    }
+
+    //user add
+    @RequestMapping(value = "/user", method = RequestMethod.PUT)
+    @ApiOperation(value = "Add new user", produces = "application/json")
+    public ResponseEntity addUser(@RequestBody User user, @RequestParam(value = "username", required = false) String username) {
+        
+        
+        Scale s1 = new Scale();
+        s1.setId("1");
+        Scale s2 = new Scale();
+        s2.setId("2");
+        
+        List<Scale> scales = new ArrayList();
+        scales.add(s1);
+        scales.add(s2);
+        
+        //shelf.setScales(scales);
+        
+//        dataService.addShelf(shelf);
+        
+        
+        return null;
+        //return new ResponseEntity(HttpStatus.OK);
+    }
+    
     //shelf add
     @RequestMapping(value = "/shelf", method = RequestMethod.PUT)
     @ApiOperation(value = "Add new shelf", produces = "application/json")

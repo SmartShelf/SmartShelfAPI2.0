@@ -37,11 +37,13 @@ public class DataService {
     }
 
     public UserDoc findUser(String username) {
-        String docName = "6401de6cf1a89da5026c546a1ef1a092";
+        
         try {
-            if (db.contains(docName)) {
-                user = db.find(UserDoc.class, docName);
-            }
+            user = db.findByIndex("\"selector\": { \"user.username\": \"" + username + "\"} " 
+                    , UserDoc.class).get(0);
+            String u = user.toString();
+            System.out.println(u);
+          
         } catch (CouchDbException ex) {
             System.out.println("Cant reach DB");
         }
@@ -52,19 +54,41 @@ public class DataService {
     public UserDoc getUser() {
 
         if(user==null){
-            user=findUser(null);
+            user=findUser("demouser");
             
         }
         return user;
     }
 
     public Response updateUser(UserDoc user) {
+        
+        try
+        {
+       // user.setRev(null);
+        //String json = user.toString();
+       // JsonParser parser = new JsonParser();
+       // JsonObject docJson = parser.parse(user.toString()).getAsJsonObject();
+        //user.setId(java.util.UUID.randomUUID().toString());
+        //String revPre = (Integer.parseInt(user.getRev().substring(0, 4)) + 1) + "-";
+        //user.setRev(null);
         Response response = db.update(user);
+       // Response response = db.save(user);
 
         return response;
+        }
+        catch (Exception ex)
+        {
+            return null;
+        }
     }
 
     public List<Shelf> getShelfs() {
+
+        return getUser().getShelfs();
+
+    }
+    
+    public List<Shelf> getShelves() {
 
         return getUser().getShelfs();
 
@@ -154,6 +178,15 @@ public class DataService {
 
     }
 
+//    public void addUser(User user) {
+//
+//        db.add(user);
+//        getShelfs().add(user);
+//
+//         updateUser();
+//
+//    }
+    
     public void addShelf(Shelf shelf) {
         
 

@@ -1,5 +1,6 @@
 package com.sogeti.smartshelf.model;
 
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -34,7 +35,28 @@ public class Shelf {
     public void setScales(List<Scale> scales) {
         this.scales = scales;
     }
-    
+    @Override
+    public String toString() {
+
+          String hhStr =  "{ id: " + id + ", name: " + name + " scales: [";
+          boolean isFirst = true;
+          for(Iterator<Scale> s = scales.iterator(); s.hasNext(); ) {
+            if (!isFirst)
+            {
+                hhStr = hhStr + ", ";
+            }
+            else
+            {
+                isFirst = false;
+            }
+                
+            Scale sc = s.next();
+            hhStr = hhStr + sc.toString();
+            
+          }
+          hhStr = hhStr + "] }";
+          return hhStr;
+    }
     
     
 }

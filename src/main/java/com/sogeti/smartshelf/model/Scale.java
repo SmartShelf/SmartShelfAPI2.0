@@ -1,5 +1,7 @@
 package com.sogeti.smartshelf.model;
 
+import java.util.Iterator;
+
 /**
  *
  * @author fabdin
@@ -69,5 +71,11 @@ public class Scale {
     public void setEstimatedDate(String estimatedDate) {
         this.estimatedDate = estimatedDate;
     }
+    @Override
+    public String toString() {
 
+          return "{ id: "+id+",weight: " + weight + ",productId: " +productId+ 
+                  ",persentage: " +persentage+ ",productId: " +registerDate +
+                  ",updateDate: " +updateDate+",updateDate: " +estimatedDate+"}";
+    }
 }
