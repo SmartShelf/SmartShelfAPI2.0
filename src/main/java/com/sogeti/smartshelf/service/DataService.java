@@ -53,10 +53,9 @@ public class DataService {
 
     public UserDoc getUser() {
 
-        if(user==null){
-            user=findUser("demouser");
+        user=findUser("demouser");
             
-        }
+        
         return user;
     }
 
@@ -70,7 +69,8 @@ public class DataService {
        // JsonObject docJson = parser.parse(user.toString()).getAsJsonObject();
         //user.setId(java.util.UUID.randomUUID().toString());
         //String revPre = (Integer.parseInt(user.getRev().substring(0, 4)) + 1) + "-";
-        //user.setRev(null);
+        String rev = "123-" + java.util.UUID.randomUUID().toString();
+        user.setRev(rev);
         Response response = db.update(user);
        // Response response = db.save(user);
 
@@ -79,6 +79,30 @@ public class DataService {
         catch (Exception ex)
         {
             return null;
+        }
+    }
+    public Response updateUser_AddNew() {
+        
+        try
+        {
+          
+         
+         
+       // user.setRev(null);
+        //String json = user.toString();
+       // JsonParser parser = new JsonParser();
+       // JsonObject docJson = parser.parse(user.toString()).getAsJsonObject();
+        user.setId(java.util.UUID.randomUUID().toString());
+        //String revPre = (Integer.parseInt(user.getRev().substring(0, 4)) + 1) + "-";
+        user.setRev(null);
+        //Response response = db.update(user);
+        Response response = db.save(user);
+
+        return response;
+        }
+        catch (Exception ex)
+        {
+                return null;
         }
     }
 
@@ -259,6 +283,52 @@ public class DataService {
                         break;
                     }
                 }
+                
+            }
+        }
+    }
+    public void updateShelfWeights(String deviceId, String scaleId1, Integer scaleValue1, String scaleId2, Integer scaleValue2) {
+        
+        getUser();
+        
+        for(Shelf shelf:user.getShelfs()){
+            if(shelf.getId().equals(deviceId)){
+                
+                for(Scale scale: shelf.getScales()){
+                    if(scale.getId().equals(scaleId1)){
+                        scale.setWeight(scaleValue1);
+                        
+                        
+                    }
+                    if(scale.getId().equals(scaleId2)){
+                        scale.setWeight(scaleValue2);
+                                                
+                    }
+                }
+                updateUser();
+                
+            }
+        }
+    }
+    public void updateShelfWeights_AddNew(String deviceId, String scaleId1, Integer scaleValue1, String scaleId2, Integer scaleValue2) {
+        
+        getUser();
+        Response response = db.remove(user);
+        for(Shelf shelf:user.getShelfs()){
+            if(shelf.getId().equals(deviceId)){
+                
+                for(Scale scale: shelf.getScales()){
+                    if(scale.getId().equals(scaleId1)){
+                        scale.setWeight(scaleValue1);
+                        
+                        
+                    }
+                    if(scale.getId().equals(scaleId2)){
+                        scale.setWeight(scaleValue2);
+                                                
+                    }
+                }
+                updateUser_AddNew();
                 
             }
         }
