@@ -273,9 +273,38 @@ public class MainController {
         System.out.println("scale1 "+s1);
         System.out.println("scale2 "+s2);   
         
-        dataService.updateWeights(deviceId,"1",s1);
-        dataService.updateWeights(deviceId,"2",s2);
+       // dataService.updateWeights(deviceId,"1",s1);
+       // dataService.updateWeights(deviceId,"2",s2);
+        dataService.updateShelfWeights_AddNew(deviceId, "1", s1, "2", s2);
+//        for(String key:scales.keySet()){
+//            System.out.println(key+" : "+scales.get(key));
+//        }
         
+
+        return new ResponseEntity(HttpStatus.OK);
+    }
+    @RequestMapping(value = "/weightsUpdateAddNew/{deviceId}", method = RequestMethod.POST)
+    @ApiOperation(value = "Update Weights Add New", produces = "application/json")
+    public ResponseEntity updateWeightsAddNew(
+            @PathVariable(value = "deviceId") String deviceId,
+            @RequestParam(value = "username", required = false) String username,
+            @RequestParam(value = "scale1") String scale1,
+            @RequestParam(value = "scale2") String scale2,
+            @RequestBody(required = false) Map<String,String> scales
+    ) {
+        
+        
+        System.out.println("DevicdID : " + deviceId);
+        
+        Integer s1=MathUtils.normalizeWeight(scale1, "scale1");
+        Integer s2=MathUtils.normalizeWeight(scale2, "scale2");
+        
+        System.out.println("scale1 "+s1);
+        System.out.println("scale2 "+s2);   
+        
+        //dataService.updateWeights(deviceId,"1",s1);
+        //dataService.updateWeights(deviceId,"2",s2);
+        dataService.updateShelfWeights_AddNew(deviceId, "1", s1, "2", s2);
 //        for(String key:scales.keySet()){
 //            System.out.println(key+" : "+scales.get(key));
 //        }
