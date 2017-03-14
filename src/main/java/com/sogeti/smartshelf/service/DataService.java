@@ -272,6 +272,7 @@ public class DataService {
     public void updateWeights(String deviceId, String scaleId, Integer scaleValue) {
         
         getUser();
+        Response response = db.remove(user);
         
         for(Shelf shelf:user.getShelfs()){
             if(shelf.getId().equals(deviceId)){
@@ -279,7 +280,7 @@ public class DataService {
                 for(Scale scale: shelf.getScales()){
                     if(scale.getId().equals(scaleId)){
                         scale.setWeight(scaleValue);
-                        updateUser();
+                        updateUser_AddNew();
                         break;
                     }
                 }
@@ -290,6 +291,7 @@ public class DataService {
     public void updateShelfWeights(String deviceId, String scaleId1, Integer scaleValue1, String scaleId2, Integer scaleValue2) {
         
         getUser();
+        Response response = db.remove(user);
         
         for(Shelf shelf:user.getShelfs()){
             if(shelf.getId().equals(deviceId)){
@@ -305,7 +307,7 @@ public class DataService {
                                                 
                     }
                 }
-                updateUser();
+                updateUser_AddNew();
                 
             }
         }
