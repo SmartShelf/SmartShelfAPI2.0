@@ -16,6 +16,9 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
 import com.sogeti.smartshelf.model.DataModel;
+import com.sogeti.smartshelf.model.Member;
+import com.sogeti.smartshelf.model.Product;
+import com.sogeti.smartshelf.model.ProductScoringCriteria;
 import com.sogeti.smartshelf.model.Scale;
 import com.sogeti.smartshelf.model.Shelf;
 import com.sogeti.smartshelf.model.UserDoc;
@@ -55,47 +58,59 @@ public class PredictionController {
 		return new ResponseEntity<String>("testing getDeployModels()", HttpStatus.OK);
 	}
 	
-	@RequestMapping(value = "/user/{username}/product/{productId}",
+	@RequestMapping(value = "/user/{username}/shelf/{shelfId}/scale/{scaleId}",
 			method = RequestMethod.GET)
 	public ResponseEntity<String> predictProduct(@PathVariable String username,
-			@PathVariable String productId) {
-		UserDoc userDoc = dataService.findUser(username);
+			@PathVariable String shelfId, @PathVariable String scaleId) {
+		ProductScoringCriteria criteria = getProductScoringCriteria(username, shelfId, scaleId);
+//		String criteriaHeaders = getCSVHeaders(criteria);
+//		String criteriaCSV = transformProductScoringCriteriaToCSV(criteria);
 		
-		String usernameFromDoc = userDoc.getUser().getUsername();
-		String productIdFromDoc = "";
-		Integer productWeightFromDoc = null;
-		List<Shelf> shelfs = userDoc.getShelfs();
-		for (Shelf shelf : shelfs) {
-			boolean productIdFound = false;
-			List<Scale> scales = shelf.getScales();
-			for (Scale scale : scales) {
-				String scaleProductId = scale.getProductId(); 
-				if (scaleProductId.equalsIgnoreCase(productId)) {
-					productIdFromDoc = scaleProductId;
-					productWeightFromDoc = scale.getWeight();
-					productIdFound = true;
-					break;
-				}
-			}
-			if (productIdFound) {
-				break;
-			}
-		}
-		
-		String body;
-		if (productId.length() > 0) {
-			body = "username=" + usernameFromDoc +
-					", productId=" + productIdFromDoc +
-					", weight=" + productWeightFromDoc;
-		}
-		else {
-			body = "product not found for user";
-		}
-		
+		String body = criteria.toString();
 		ResponseEntity<String> response = 
 				new ResponseEntity<String>(body, HttpStatus.OK);
 		
 		return response;
+	}
+	
+	private ProductScoringCriteria getProductScoringCriteria(String username,
+			String shelfId, String scaleId) {
+		UserDoc userDoc = dataService.findUser(username);
+		List<Scale> scales = dataService.getScales(shelfId);
+		ProductScoringCriteria criteria = new ProductScoringCriteria();
+		
+		for (Scale scale : scales) {
+			if (scale.getId().equalsIgnoreCase(scaleId)) {
+				String scaleProductId = scale.getProductId();
+				Product product = dataService.getProduct(scaleProductId);
+
+				dataService.populatePersentageInScale(scale);
+				criteria.setFinalPercentage(scale.getPersentage());
+				criteria.setStartingWeight(product.getWeight());
+				criteria.setFinalWeight(scale.getWeight());
+				criteria.setUseDays(scale.getUseDays());
+				criteria.setProductId(scaleProductId);
+				List<Member> householdMembers =
+						userDoc.getUser().getHousehold().getMembers();
+				Double averageAge = calculateAverageAge(householdMembers);
+				criteria.setAvgAge(averageAge);
+				criteria.setHouseholdSize(householdMembers.size());
+				criteria.setZipCode(userDoc.getUser().getZipCode());
+			}
+		}
+		
+		return criteria;
+	}
+
+	private Double calculateAverageAge(List<Member> members) {
+		int totalAge = 0;
+		for (Member member : members) {
+			totalAge += member.getAge();
+		}
+		int memberCount = members.size();
+		double avgAge = totalAge / memberCount;
+		
+		return avgAge;
 	}
 	
 }

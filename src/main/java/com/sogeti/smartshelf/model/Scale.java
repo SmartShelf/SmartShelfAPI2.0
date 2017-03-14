@@ -15,6 +15,7 @@ public class Scale {
     String registerDate;
     String updateDate;
     String estimatedDate;
+    Integer useDays;
 
     public Integer getWeight() {
         return weight;
@@ -71,11 +72,21 @@ public class Scale {
     public void setEstimatedDate(String estimatedDate) {
         this.estimatedDate = estimatedDate;
     }
+    
+    public Integer getUseDays() {
+    	return useDays;
+    }
+    
+    public void setUseDays(Integer useDays) {
+    	this.useDays = useDays;
+    }
+    
     @Override
     public String toString() {
 
           return "{ id: "+id+",weight: " + weight + ",productId: " +productId+ 
                   ",persentage: " +persentage+ ",productId: " +registerDate +
-                  ",updateDate: " +updateDate+",updateDate: " +estimatedDate+"}";
+                  ",updateDate: " +updateDate+",updateDate: " +estimatedDate+
+                  ",useDays: " + useDays + "}";
     }
 }
