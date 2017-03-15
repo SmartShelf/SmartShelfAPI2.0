@@ -213,10 +213,10 @@ public class DataService {
     
     public void addShelf(Shelf shelf) {
         
-
+        Response response = db.remove(user);
         getShelfs().add(shelf);
 
-         updateUser();
+         updateUser_AddNew();
 
     }
 
@@ -225,7 +225,8 @@ public class DataService {
         for (Shelf f : getShelfs()) {
             if (f.getId().equals(shelf.getId())) {
                 shelf = f;
-                 updateUser();
+                Response response = db.remove(user);
+                 updateUser_AddNew();
             }
         }
 
@@ -237,16 +238,16 @@ public class DataService {
         scale.setEstimatedDate("");
         scale.setUpdateDate("");
         scale.setPersentage(0);
-
-        updateUser();
+        Response response = db.remove(user);
+        updateUser_AddNew();
         
     }
 
     public void updateProduct(Scale scale, String productId) {
 
         scale.setProductId(productId);
-
-        updateUser();
+        Response response = db.remove(user);
+        updateUser_AddNew();
 
     }
     
