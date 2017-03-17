@@ -11,7 +11,10 @@ import com.sogeti.smartshelf.model.ProductsDoc;
 import com.sogeti.smartshelf.model.Scale;
 import com.sogeti.smartshelf.model.Shelf;
 import com.sogeti.smartshelf.model.UserDoc;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 import org.springframework.stereotype.Service;
 
@@ -221,15 +224,18 @@ public class DataService {
     }
 
     public void updateShelf(Shelf shelf) {
-
+        List<Shelf> lstShelves = new ArrayList<>();
         for (Shelf f : getShelfs()) {
             if (f.getId().equals(shelf.getId())) {
-                shelf = f;
-                Response response = db.remove(user);
-                 updateUser_AddNew();
+                f = shelf;
+                
+                
             }
+            lstShelves.add(f);
         }
-
+        user.setShelfs(lstShelves);
+        Response response = db.remove(user);
+        updateUser_AddNew();
     }
 
     public void clearScale(Scale scale) {
@@ -281,6 +287,10 @@ public class DataService {
                 for(Scale scale: shelf.getScales()){
                     if(scale.getId().equals(scaleId)){
                         scale.setWeight(scaleValue);
+                        DateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
+                        Calendar cal = Calendar.getInstance();
+
+                        scale.setRegisterDate(dateFormat.format(cal));
                         updateUser_AddNew();
                         break;
                     }
