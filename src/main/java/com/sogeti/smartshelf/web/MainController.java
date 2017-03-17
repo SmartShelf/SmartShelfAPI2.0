@@ -170,6 +170,21 @@ public class MainController {
 
         return new ResponseEntity(HttpStatus.OK);
     }
+    
+    
+    //shelf update
+    @RequestMapping(value = "UpdateShelf/{shelfId}/{shelfName}", method = RequestMethod.POST)
+    @ApiOperation(value = "Update shelf", produces = "application/json")
+    public ResponseEntity updateShelfSimple(HttpSession session,
+            @ApiParam(name = "shelfId", value = "shelfId") @RequestParam(value = "shelfId", required = true) String shelfId,
+            @ApiParam(name = "shelfName", value = "shelfName") @RequestParam(value = "shelfName", required = true) String shelfName) {
+        Shelf shelf = dataService.getShelf(shelfId);
+        shelf.setName(shelfName);
+        
+        dataService.updateShelf(shelf);
+
+        return new ResponseEntity(HttpStatus.OK);
+    }
 
     @RequestMapping(value = "product/register/shelf/{shelfId}/scale/{scaleId}/product/{productId}", method = RequestMethod.POST)
     @ApiOperation(value = "Register new product on a scale", produces = "application/json")
