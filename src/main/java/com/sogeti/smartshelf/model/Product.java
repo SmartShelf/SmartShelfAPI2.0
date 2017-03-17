@@ -12,6 +12,7 @@ public class Product {
     Integer packageWeight;
     
     String barcode;
+    String url;
 
     public String getId() {
         return id;
@@ -43,6 +44,13 @@ public class Product {
 
     public void setBarcode(String barcode) {
         this.barcode = barcode;
+    }
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
     }
 
     public Integer getPackageWeight() {
