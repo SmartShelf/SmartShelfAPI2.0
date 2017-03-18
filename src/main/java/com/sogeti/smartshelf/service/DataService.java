@@ -246,6 +246,7 @@ public class DataService {
         scale.setEstimatedDate("");
         scale.setUpdateDate("");
         scale.setPersentage(0);
+        scale.setUseDays(0);
         Response response = db.remove(user);
         updateUser_AddNew();
         
@@ -278,7 +279,7 @@ public class DataService {
         updateUser();
     }
 
-    public void updateWeights(String deviceId, String scaleId, Integer scaleValue) {
+    public void updateWeights(String deviceId, String scaleId, Double scaleValue) {
         
         getUser();
         Response response = db.remove(user);
@@ -301,7 +302,7 @@ public class DataService {
             }
         }
     }
-    public void updateShelfWeights(String deviceId, String scaleId1, Integer scaleValue1, String scaleId2, Integer scaleValue2) {
+    public void updateShelfWeights(String deviceId, String scaleId1, Double scaleValue1, String scaleId2, Double scaleValue2) {
         
         getUser();
         Response response = db.remove(user);
@@ -325,7 +326,7 @@ public class DataService {
             }
         }
     }
-    public void updateShelfWeights_AddNew(String deviceId, String scaleId1, Integer scaleValue1, String scaleId2, Integer scaleValue2) {
+    public void updateShelfWeights_AddNew(String deviceId, String scaleId1, Double scaleValue1, String scaleId2, Double scaleValue2) {
         
         getUser();
         Response response = db.remove(user);
@@ -354,8 +355,8 @@ public class DataService {
 	private Integer calculateUseDays(Scale scale, String productId) {
 		Product product = getProduct(productId);
 		Double avgDailyUse = product.getAvgDailyUse();
-		Integer startingWeight = product.getWeight();
-		Integer currentWeight = scale.getWeight();
+		Double startingWeight = product.getWeight();
+		Double currentWeight = scale.getWeight();
 		
 		return (int) ((startingWeight - currentWeight) / avgDailyUse);
 	}

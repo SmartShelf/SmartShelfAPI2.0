@@ -9,19 +9,19 @@ import com.sogeti.smartshelf.model.Product;
 public class MathUtils {
     
     
-    public static Integer getPersentage(Product product, Integer currentWeight){
+    public static Integer getPersentage(Product product, Double currentWeight){
         
         if(product == null) return 0;
         
-        int weightWithoutPackaging = product.getWeight() - product.getPackageWeight();
-        int currentWeightWithoutPackaging = currentWeight - product.getPackageWeight();
+        double weightWithoutPackaging = product.getWeight() - product.getPackageWeight();
+        double currentWeightWithoutPackaging = currentWeight - product.getPackageWeight();
         
         double result=((double)currentWeightWithoutPackaging/(double)weightWithoutPackaging)*100;
         
         return (int) Math.round(result);
     }
     
-    public static Integer normalizeWeight(String pressure, String name){
+    public static Double normalizeWeight(String pressure, String name){
         
         Double d=new Double(pressure);
         
@@ -44,7 +44,7 @@ public class MathUtils {
         
          
 
-        return result.intValue();
+        return result;
     }
     
 }

@@ -9,7 +9,7 @@ import java.util.Iterator;
 public class Scale {
 
     String id;
-    Integer weight;
+    Double weight;
     String productId;
     Integer persentage;
     String registerDate;
@@ -17,11 +17,11 @@ public class Scale {
     String estimatedDate;
     Integer useDays;
 
-    public Integer getWeight() {
+    public Double getWeight() {
         return weight;
     }
 
-    public void setWeight(Integer weight) {
+    public void setWeight(Double weight) {
         this.weight = weight;
     }
 

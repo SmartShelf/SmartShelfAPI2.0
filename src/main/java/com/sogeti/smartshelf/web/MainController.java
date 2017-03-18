@@ -282,8 +282,8 @@ public class MainController {
         
         System.out.println("DevicdID : " + deviceId);
         
-        Integer s1=MathUtils.normalizeWeight(scale1, "scale1");
-        Integer s2=MathUtils.normalizeWeight(scale2, "scale2");
+        Double s1=MathUtils.normalizeWeight(scale1, "scale1");
+        Double s2=MathUtils.normalizeWeight(scale2, "scale2");
         
         System.out.println("scale1 "+s1);
         System.out.println("scale2 "+s2);   
@@ -311,8 +311,8 @@ public class MainController {
         
         System.out.println("DevicdID : " + deviceId);
         
-        Integer s1=MathUtils.normalizeWeight(scale1, "scale1");
-        Integer s2=MathUtils.normalizeWeight(scale2, "scale2");
+        Double s1=MathUtils.normalizeWeight(scale1, "scale1");
+        Double s2=MathUtils.normalizeWeight(scale2, "scale2");
         
         System.out.println("scale1 "+s1);
         System.out.println("scale2 "+s2);   

@@ -8,8 +8,8 @@ public class Product {
     
     String id;
     String name;
-    Integer weight;
-    Integer packageWeight;
+    Double weight;
+    Double packageWeight;
     Double avgDailyUse;
     String barcode;
     String url;
@@ -22,11 +22,11 @@ public class Product {
         this.id = id;
     }
 
-    public Integer getWeight() {
+    public Double getWeight() {
         return weight;
     }
 
-    public void setWeight(Integer weight) {
+    public void setWeight(Double weight) {
         this.weight = weight;
     }
     
@@ -53,11 +53,11 @@ public class Product {
         this.url = url;
     }
 
-    public Integer getPackageWeight() {
+    public Double getPackageWeight() {
         return packageWeight;
     }
 
-    public void setPackageWeight(Integer packageWeight) {
+    public void setPackageWeight(Double packageWeight) {
         this.packageWeight = packageWeight;
     }
     
