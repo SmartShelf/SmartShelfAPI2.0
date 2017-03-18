@@ -93,7 +93,7 @@ public class PredictionController {
 		
 		HttpHeaders headers = new HttpHeaders();
 		headers.set("Accept", MediaType.APPLICATION_JSON_VALUE);
-		String url = "https://ibm-watson-ml.mybluemix.net/pm/v1/score/Smart_Shelf_both_v1.4";
+		String url = "https://ibm-watson-ml.mybluemix.net/pm/v1/score/smartShelf_LDA";
 		String accesskey = "iqMbzXCtPD/WMQikw8DJWjSVoHWH/UTNlyfhgq9LOgJXkrv6HHH+pi7UhJdoYpSwHxGxQ3pIogjgEOjN0TGDTcL0h32gVzPkwMbmHXNpi+FQYUqQmv73SQJrb1WXWeZv";
 		
 		UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(url)
