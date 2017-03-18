@@ -116,7 +116,8 @@ public class PredictionController {
 			ProductScoringCriteria productScoring = productScoringList.get(0);
 			List<List<Object>> scoringDataList = productScoring.getData();
 			List<Object> scoringData = scoringDataList.get(0);
-			Boolean isOutOfStock = (Boolean) scoringData.get(8);
+			String isOutOfStockStr = (String) scoringData.get(8);
+			Boolean isOutOfStock = new Boolean(isOutOfStockStr);
 			scoringResults.setIsOutOfStock(isOutOfStock);
 			Double outOfStockProbability = (Double) scoringData.get(9);
 			scoringResults.setOutOfStockProbability(outOfStockProbability);
