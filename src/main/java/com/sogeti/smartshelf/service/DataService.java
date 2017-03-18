@@ -92,7 +92,7 @@ public class DataService {
         {
           
          
-         
+         Response response = db.remove(user);
        // user.setRev(null);
         //String json = user.toString();
        // JsonParser parser = new JsonParser();
@@ -101,7 +101,7 @@ public class DataService {
         //String revPre = (Integer.parseInt(user.getRev().substring(0, 4)) + 1) + "-";
         user.setRev(null);
         //Response response = db.update(user);
-        Response response = db.save(user);
+        response = db.save(user);
 
         return response;
         }
@@ -230,7 +230,6 @@ public class DataService {
     
     public void addShelf(Shelf shelf) {
         
-        Response response = db.remove(user);
         getShelfs().add(shelf);
 
          updateUser_AddNew();
@@ -248,7 +247,6 @@ public class DataService {
             lstShelves.add(f);
         }
         user.setShelfs(lstShelves);
-        Response response = db.remove(user);
         updateUser_AddNew();
     }
 
@@ -259,7 +257,6 @@ public class DataService {
         scale.setUpdateDate("");
         scale.setPersentage(0);
         scale.setUseDays(0);
-        Response response = db.remove(user);
         updateUser_AddNew();
         
     }
@@ -267,7 +264,6 @@ public class DataService {
     public void updateProduct(Scale scale, String productId) {
 
         scale.setProductId(productId);
-        Response response = db.remove(user);
         updateUser_AddNew();
 
     }
@@ -294,7 +290,7 @@ public class DataService {
     public void updateWeights(String deviceId, String scaleId, Double scaleValue) {
         
         getUser();
-        Response response = db.remove(user);
+        
         
         for(Shelf shelf:user.getShelfs()){
             if(shelf.getId().equals(deviceId)){
@@ -341,7 +337,6 @@ public class DataService {
     public void updateShelfWeights_AddNew(String deviceId, String scaleId1, Double scaleValue1, String scaleId2, Double scaleValue2) {
         
         getUser();
-        Response response = db.remove(user);
         for(Shelf shelf:user.getShelfs()){
             if(shelf.getId().equals(deviceId)){
                 
@@ -369,8 +364,13 @@ public class DataService {
 		Double avgDailyUse = product.getAvgDailyUse();
 		Double startingWeight = product.getWeight();
 		Double currentWeight = scale.getWeight();
-		
+		try{
 		return (int) ((startingWeight - currentWeight) / avgDailyUse);
+                }
+                catch(Exception ex)
+                {
+                    return 0;
+                }
 	}
     
 }
