@@ -110,14 +110,26 @@ public class DataService {
     }
 
     public List<Shelf> getShelfs() {
-
-        return getUser().getShelfs();
-
+        if (user == null)
+        {
+            return getUser().getShelfs();
+        }
+        else
+        {
+            return user.getShelfs();
+        }
     }
     
     public List<Shelf> getShelves() {
 
-        return getUser().getShelfs();
+        if (user == null)
+        {
+            return getUser().getShelfs();
+        }
+        else
+        {
+            return user.getShelfs();
+        }
 
     }
 
