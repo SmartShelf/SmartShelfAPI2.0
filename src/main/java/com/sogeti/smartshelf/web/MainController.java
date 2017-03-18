@@ -173,7 +173,7 @@ public class MainController {
     
     
     //shelf update
-    @RequestMapping(value = "UpdateShelf/{shelfId}/{shelfName}", method = RequestMethod.POST)
+    @RequestMapping(value = "UpdateShelf", method = RequestMethod.POST)
     @ApiOperation(value = "Update shelf", produces = "application/json")
     public ResponseEntity updateShelfSimple(HttpSession session,
             @ApiParam(name = "shelfId", value = "shelfId") @RequestParam(value = "shelfId", required = true) String shelfId,
