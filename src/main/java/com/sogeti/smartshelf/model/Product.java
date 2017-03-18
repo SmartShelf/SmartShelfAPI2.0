@@ -10,7 +10,7 @@ public class Product {
     String name;
     Integer weight;
     Integer packageWeight;
-    
+    Double avgDailyUse;
     String barcode;
     String url;
 
@@ -60,5 +60,12 @@ public class Product {
     public void setPackageWeight(Integer packageWeight) {
         this.packageWeight = packageWeight;
     }
-
+    
+    public Double getAvgDailyUse() {
+    	return avgDailyUse;
+    }
+    
+    public void setAvgDailyUse(Double avgDailyUse) {
+		this.avgDailyUse = avgDailyUse;
+	}
 }

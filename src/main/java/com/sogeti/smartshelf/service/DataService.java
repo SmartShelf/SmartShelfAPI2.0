@@ -11,11 +11,13 @@ import com.sogeti.smartshelf.model.ProductsDoc;
 import com.sogeti.smartshelf.model.Scale;
 import com.sogeti.smartshelf.model.Shelf;
 import com.sogeti.smartshelf.model.UserDoc;
+
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+
 import org.springframework.stereotype.Service;
 
 /**
@@ -333,12 +335,14 @@ public class DataService {
                 for(Scale scale: shelf.getScales()){
                     if(scale.getId().equals(scaleId1)){
                         scale.setWeight(scaleValue1);
-                        
+                        Integer useDays = calculateUseDays(scale, scale.getProductId());
+                        scale.setUseDays(useDays);
                         
                     }
                     if(scale.getId().equals(scaleId2)){
                         scale.setWeight(scaleValue2);
-                                                
+                        Integer useDays = calculateUseDays(scale, scale.getProductId());
+                        scale.setUseDays(useDays);    
                     }
                 }
                 updateUser_AddNew();
@@ -346,5 +350,14 @@ public class DataService {
             }
         }
     }
+
+	private Integer calculateUseDays(Scale scale, String productId) {
+		Product product = getProduct(productId);
+		Double avgDailyUse = product.getAvgDailyUse();
+		Integer startingWeight = product.getWeight();
+		Integer currentWeight = scale.getWeight();
+		
+		return (int) ((startingWeight - currentWeight) / avgDailyUse);
+	}
     
 }

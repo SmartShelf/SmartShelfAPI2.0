@@ -169,17 +169,29 @@ public class PredictionController {
 				Product product = dataService.getProduct(scaleProductId);
 				dataService.populatePersentageInScale(scale);
 //				[20.0,7.0,35,4,600,"40.5",2,43235]
-				scoringData.add(20.0);
-				scoringData.add(7.0);
-				scoringData.add(35);
-				scoringData.add(4);
-				scoringData.add(600);
+//				scoringData.add(20.0);
+//				scoringData.add(7.0);
+//				scoringData.add(35);
+//				scoringData.add(4);
+//				scoringData.add(600);
+//				List<Member> householdMembers =
+//						userDoc.getUser().getHousehold().getMembers();
+//				Double averageAge = calculateAverageAge(householdMembers);
+//				scoringData.add(40.5);
+//				scoringData.add(2);
+//				scoringData.add("43235");
+				
+				scoringData.add(scale.getPersentage());
+				scoringData.add(scale.getWeight());
+				scoringData.add(product.getWeight());
+				scoringData.add(scale.getUseDays());
+				scoringData.add(scaleProductId);
 				List<Member> householdMembers =
 						userDoc.getUser().getHousehold().getMembers();
 				Double averageAge = calculateAverageAge(householdMembers);
-				scoringData.add(40.5);
-				scoringData.add(2);
-				scoringData.add("43235");
+				scoringData.add(averageAge);
+				scoringData.add(householdMembers.size());
+				scoringData.add(userDoc.getUser().getZipCode());
 				
 				criteria.getData().add(scoringData);
 				
